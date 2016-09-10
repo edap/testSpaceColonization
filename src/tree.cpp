@@ -14,14 +14,10 @@ Tree::Tree() {
     bool found = false;
     while(!found){
         auto current = *branches.back();
-        ofVec3f currentPosition = current.node.getGlobalPosition();
         ofVec3f cur = current.getPosition();
-        cout << cur << endl;
-        cout << currentPosition << endl;
         for(auto l:leaves){
             l.draw();
-            float distance = currentPosition.distance(l.getPosition());
-            cout << distance << endl;
+            float distance = cur.distance(l.getPosition());
             if(distance < max_dist){
                 found = true;
             }
@@ -30,8 +26,6 @@ Tree::Tree() {
         if (!found){
             shared_ptr<Branch> nextBranch(new Branch(current.direction));
             if(!branches.empty()){
-//                nextBranch->node.setParent(branches.back()->node);
-//                nextBranch->node.move(current.direction);
                 nextBranch->setParent(branches.back());
                 nextBranch->setPosition(current.direction);
             }
