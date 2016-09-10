@@ -13,6 +13,7 @@ public:
     Leaf();
     void draw();
     ofVec3f getPosition();
+    bool reached = false;
 
 private:
     ofVec3f pos;

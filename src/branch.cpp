@@ -4,7 +4,7 @@ Branch::Branch(const ofVec3f _direction){
     direction = _direction;
 }
 
-void Branch::setPosition(ofVec3f pos){
+void Branch::move(ofVec3f pos){
     this->node.move(pos);
 }
 
