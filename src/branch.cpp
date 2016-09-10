@@ -1,12 +1,15 @@
 #include "branch.h"
 
-Branch::Branch(const ofVec3f _position, const ofVec3f _direction){
-    //this->setPosition(_position);
+Branch::Branch(const ofVec3f _direction){
     direction = _direction;
 }
 
 void Branch::setPosition(ofVec3f pos){
     this->node.move(pos);
+}
+
+void Branch::setParent(shared_ptr<Branch> branch){
+    this->node.setParent(branch->node);
 }
 
 ofVec3f Branch::getPosition(){
@@ -20,5 +23,4 @@ void Branch::draw(){
         auto parentPos = this->node.getParent()->getGlobalPosition();
         ofDrawLine(pos.x, pos.y, parentPos.x, parentPos.y);
     }
-
 }

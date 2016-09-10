@@ -2,16 +2,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-//    auto bla = ofVec3f(ofGetWidth()/2, ofGetHeight(),0);
-//    auto blu = ofVec3f(0, -1,0);
-//
-//    auto parent = ofNode();
-//    parent.setGlobalPosition(bla);
-//    auto child = ofNode();
-//
-//    child.setParent(parent);
-//    child.setGlobalPosition(blu);
-//    cout << parent.getGlobalPosition().distance(child.getGlobalPosition());
+
 }
 
 //--------------------------------------------------------------

@@ -3,7 +3,7 @@
 Tree::Tree() {
     auto rootPos = ofVec3f(ofGetWidth()/2, ofGetHeight(), 0);
     auto rootDir = ofVec3f(0, -1, 0);
-    shared_ptr<Branch> root(new Branch(rootPos, rootDir));
+    shared_ptr<Branch> root(new Branch(rootDir));
     root->setPosition(rootPos);
     branches.push_back(root);
 
@@ -28,11 +28,12 @@ Tree::Tree() {
         }
 
         if (!found){
-            auto newPos = current.node.getGlobalPosition() + current.direction;
-            shared_ptr<Branch> nextBranch(new Branch(newPos, current.direction));
+            shared_ptr<Branch> nextBranch(new Branch(current.direction));
             if(!branches.empty()){
-                nextBranch->node.setParent(branches.back()->node);
-                nextBranch->node.move(current.direction);
+//                nextBranch->node.setParent(branches.back()->node);
+//                nextBranch->node.move(current.direction);
+                nextBranch->setParent(branches.back());
+                nextBranch->setPosition(current.direction);
             }
             branches.push_back(nextBranch);
         }
