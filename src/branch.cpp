@@ -9,11 +9,16 @@ void Branch::setPosition(ofVec3f pos){
     this->node.move(pos);
 }
 
-//void Branch::draw(){
-//    if(this->node.getParent() != nullptr){
-//        auto pos = this->node.getGlobalPosition();
-//        auto parentPos = this->node.getParent()->getGlobalPosition();
-//        ofDrawLine(pos.x, pos.y, parentPos.x, parentPos.y);
-//    }
-//
-//}
+ofVec3f Branch::getPosition(){
+    this->node.getGlobalPosition();
+}
+
+void Branch::draw(){
+    cout << "called" << endl;
+    if(this->node.getParent() != nullptr){
+        auto pos = this->node.getGlobalPosition();
+        auto parentPos = this->node.getParent()->getGlobalPosition();
+        ofDrawLine(pos.x, pos.y, parentPos.x, parentPos.y);
+    }
+
+}

@@ -19,7 +19,7 @@ public:
 private:
     vector<Leaf> leaves;
     std::vector<shared_ptr<Branch> > branches;
-    int n_leaves = 5;
-    int max_dist = 20;
+    int n_leaves = 50;
+    int max_dist = 300;
     int min_dist = 13;
 };

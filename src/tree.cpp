@@ -1,9 +1,8 @@
 #include "tree.h"
 
-
 Tree::Tree() {
     auto rootPos = ofVec3f(ofGetWidth()/2, ofGetHeight(), 0);
-    auto rootDir = ofVec3f(0, -10, 0);
+    auto rootDir = ofVec3f(0, -1, 0);
     shared_ptr<Branch> root(new Branch(rootPos, rootDir));
     branches.push_back(root);
 
@@ -14,11 +13,13 @@ Tree::Tree() {
     bool found = false;
     while(!found){
         auto current = *branches.back();
-        ofVec3f currentPosition = current.node.getPosition();
+        ofVec3f currentPosition = current.node.getGlobalPosition();
+        ofVec3f cur = current.getPosition();
+        cout << cur << endl;
+        cout << currentPosition << endl;
         for(auto l:leaves){
             l.draw();
             float distance = currentPosition.distance(l.getPosition());
-            cout << distance << endl;
             if(distance < max_dist){
                 found = true;
             }
@@ -27,8 +28,9 @@ Tree::Tree() {
         if (!found){
             auto newPos = current.node.getGlobalPosition() + current.direction;
             shared_ptr<Branch> nextBranch(new Branch(newPos, current.direction));
-            auto parent = *branches.back();
-            nextBranch->node.setParent(parent.node);
+            if(!branches.empty()){
+                nextBranch->node.setParent(branches.back()->node);
+            }
             branches.push_back(nextBranch);
         }
     }
@@ -39,6 +41,6 @@ void Tree::draw(){
         l.draw();
     }
 //    for(auto b:branches){
-//        //b->draw();
+//        b->draw();
 //    }
 }
