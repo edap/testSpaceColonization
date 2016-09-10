@@ -1,7 +1,7 @@
 #include "branch.h"
 
 Branch::Branch(const ofVec3f _position, const ofVec3f _direction){
-    this->setPosition(_position);
+    //this->setPosition(_position);
     direction = _direction;
 }
 

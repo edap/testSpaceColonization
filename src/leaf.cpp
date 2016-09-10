@@ -8,9 +8,10 @@
 
 #include "leaf.h"
 Leaf::Leaf(){
-    pos = ofVec3f(ofRandom(ofGetWidth()),
-                  ofRandom(0, ofGetHeight()-100),
-                  0);
+//    pos = ofVec3f(ofRandom(0,ofGetWidth()/20),
+//                  ofRandom(0, ofGetHeight()-100),
+//                  0);
+    pos = ofVec3f(ofGetWidth()/2, 0,0);
 }
 
 void Leaf::draw(){
