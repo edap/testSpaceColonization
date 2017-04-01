@@ -86,7 +86,7 @@ void Tree::grow(){
 
     for (auto b:branches) {
         if(b!= nullptr && b->count > 0){
-            auto newDir = b->direction / b->count;
+            auto newDir = b->direction / float(b->count);
             shared_ptr<Branch> nextBranch(new Branch(newDir));
             nextBranch->setParent(b);
             nextBranch->move(newDir );
