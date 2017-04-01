@@ -16,5 +16,6 @@ public:
     bool reached = false;
 
 private:
+    int raggio = 20;
     ofVec3f pos;
 };

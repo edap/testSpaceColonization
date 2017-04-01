@@ -2,6 +2,7 @@
 
 Branch::Branch(const ofVec3f _direction){
     direction = _direction;
+    originalDirection = _direction;
 }
 
 void Branch::move(ofVec3f pos){
@@ -14,6 +15,11 @@ void Branch::setParent(shared_ptr<Branch> branch){
 
 ofVec3f Branch::getPosition(){
     return this->node.getGlobalPosition();
+}
+
+void Branch::reset(){
+    this->direction = this->originalDirection;
+    this->count = 0;
 }
 
 void Branch::draw(){

@@ -15,7 +15,7 @@ Leaf::Leaf(){
 }
 
 void Leaf::draw(){
-    ofDrawCircle(pos.x, pos.y, 20);
+    ofDrawCircle(pos.x, pos.y, raggio);
 }
 
 ofVec3f Leaf::getPosition(){
