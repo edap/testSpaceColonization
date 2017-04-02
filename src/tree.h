@@ -23,4 +23,5 @@ private:
     int n_leaves = 100;
     int max_dist = 150;
     int min_dist = 13;
+    int branch_length = 5;
 };

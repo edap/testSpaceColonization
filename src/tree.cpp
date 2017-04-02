@@ -1,5 +1,6 @@
 #include "tree.h"
-
+//http://www.jgallant.com/procedurally-generating-trees-with-space-colonization-algorithm-in-xna/
+//http://johnwhigham.blogspot.de/2011/12/seeing-wood-for-trees.html
 Tree::Tree() {
     auto rootPos = ofVec3f(ofGetWidth()/2, ofGetHeight(), 0);
     auto rootDir = ofVec3f(0, -1, 0);
@@ -14,14 +15,10 @@ Tree::Tree() {
     auto current = root;
     bool found = false;
     while(!found){
-        //auto current = branches.back();
-
         ofVec3f cur = current->getPosition();
-        cout << cur.y << endl;
         for(auto l:leaves){
             float distance = cur.distance(l.getPosition());
             if(distance < max_dist){
-                cout << "trovato" << endl;
                 found = true;
             }
         }
@@ -30,7 +27,7 @@ Tree::Tree() {
             shared_ptr<Branch> nextBranch(new Branch(current->direction));
             if(!branches.empty()){
                 nextBranch->setParent(branches.back());
-                nextBranch->move(current->direction * 5);
+                nextBranch->move(current->direction * branch_length );
             }
             branches.push_back(nextBranch);
             current = branches.back();
@@ -40,16 +37,14 @@ Tree::Tree() {
 }
 
 void Tree::grow(){
-    for(auto& l:leaves){
+        for(int it=0;it<leaves.size();it++){
         float record = 10000.0;
-        //iteri tramite indici, all'inizio il closed branch non e' ancora stato trovato
-        // (index -1), poi quando lo trovi cambi ;'indice
+
         auto closestBranchIndex = -1;
         for(int i=0;i<branches.size();i++){
-        //for(auto b:branches){
-            auto distance = l.getPosition().distance(branches[i]->getPosition());
+            auto distance = leaves[it].getPosition().distance(branches[i]->getPosition());
             if(distance < min_dist){
-                l.reached = true;
+                leaves[it].reached = true;
                 closestBranchIndex = -1;
                 break;
             }else if (distance > max_dist){
@@ -60,27 +55,20 @@ void Tree::grow(){
             }
         }
 
-        if(closestBranchIndex>=0){
-            auto dir = (l.getPosition() - branches[closestBranchIndex]->getPosition()).normalize();
+        if(closestBranchIndex>=0 && !leaves[it].reached){
+            auto dir = (leaves[it].getPosition() - branches[closestBranchIndex]->getPosition()).normalize();
             branches[closestBranchIndex]->direction = branches[closestBranchIndex]->direction + dir;
             branches[closestBranchIndex]->count = branches[closestBranchIndex]->count + 1;
 
             shared_ptr<Branch> nextBranch(new Branch(dir));
             if(!branches.empty()){
                 nextBranch->setParent(branches.back());
-                nextBranch->move(branches[closestBranchIndex]->direction);
+                nextBranch->move(branches[closestBranchIndex]->direction * branch_length);
             }
         }
-    }
 
-    // this operation can be moved in the previous one
-    // problema. Anche se hai marcato alcune foglie come reached
-    // queste non vengono cancellate. Questo avviene perche' in realta'
-    // tu non stai cambiando il boolean "reached" in nessuna delle foglie!
-    for(int i =0; i< leaves.size(); i++){
-        if(leaves[i].reached){
-            cout << leaves.size() << endl;
-            leaves.erase(leaves.begin()+i);
+        if(leaves[it].reached){
+            leaves.erase(leaves.begin()+it);
         }
     }
 
@@ -89,7 +77,7 @@ void Tree::grow(){
             auto newDir = b->direction / float(b->count);
             shared_ptr<Branch> nextBranch(new Branch(newDir));
             nextBranch->setParent(b);
-            nextBranch->move(newDir );
+            nextBranch->move(newDir * branch_length);
             branches.push_back(nextBranch);
         }
         if(b!= nullptr){
