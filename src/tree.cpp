@@ -37,7 +37,8 @@ Tree::Tree() {
 }
 
 void Tree::grow(){
-        for(int it=0;it<leaves.size();it++){
+    cout << branches.size() << endl;
+    for(int it=0;it<leaves.size();it++){
         float record = 10000.0;
 
         auto closestBranchIndex = -1;
@@ -72,16 +73,16 @@ void Tree::grow(){
         }
     }
 
-    for (auto b:branches) {
-        if(b!= nullptr && b->count > 0){
-            auto newDir = b->direction / float(b->count);
+    for (int i = 0; i<branches.size(); i++) {
+        if(branches[i]!= nullptr && branches[i]->count > 0){
+            auto newDir = branches[i]->direction / float(branches[i]->count);
             shared_ptr<Branch> nextBranch(new Branch(newDir));
-            nextBranch->setParent(b);
+            nextBranch->setParent(branches[i]);
             nextBranch->move(newDir * branch_length);
             branches.push_back(nextBranch);
         }
-        if(b!= nullptr){
-           b->reset();
+        if(branches[i]!= nullptr){
+            branches[i]->reset();
         }
     }
 }
